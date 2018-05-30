@@ -51,7 +51,6 @@ class Login extends CI_Controller
      */	
 	public function index()
 	{
-        //die('cc');
 		if ($this->session->userdata('uid'))
 		{
 			redirect(setting('backend_access_point') . '/system/home');
@@ -86,7 +85,6 @@ class Login extends CI_Controller
      */	
 	public function _do_post()
 	{
-	    //die('cc');
 		$username = $this->input->post('username', TRUE);
 		$password = $this->input->post('password', TRUE);
 		
@@ -160,7 +158,15 @@ class Login extends CI_Controller
 		}
 		redirect(setting('backend_access_point') . '/login');
 	}
-
+	/**
+    * 测试
+    *
+    * @access  public
+    * @return  void
+    */
+    public function test(){
+	    echo 'inTest';die;
+    }
 	// ------------------------------------------------------------------------
 	
 }

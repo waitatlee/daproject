@@ -27,8 +27,7 @@
  * By default development will show errors but testing and live will hide them.
  */
 
-if (defined('ENVIRONMENT'))
-{
+if (defined('ENVIRONMENT')){
 	switch (ENVIRONMENT)
 	{
 		case 'development':
@@ -121,7 +120,6 @@ if (defined('ENVIRONMENT'))
 	// $assign_to_config['name_of_config_item'] = 'value of config item';
 
 
-
 // --------------------------------------------------------------------
 // END OF USER CONFIGURABLE SETTINGS.  DO NOT EDIT BELOW THIS LINE
 // --------------------------------------------------------------------
@@ -205,5 +203,6 @@ require_once BASEPATH . '../' . 'shared/config/constant.php';
  *
  */
 require_once BASEPATH.'core/CodeIgniter.php';
+
 /* End of file index.php */
 /* Location: ./index.php */

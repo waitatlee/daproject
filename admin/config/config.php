@@ -44,7 +44,7 @@ $config['index_page'] = 'index.php';
 | 'ORIG_PATH_INFO'	Uses the ORIG_PATH_INFO
 |
 */
-$config['uri_protocol']	= 'AUTO';
+$config['uri_protocol']	= 'QUERY_STRING';
 
 /*
 |--------------------------------------------------------------------------
@@ -293,7 +293,7 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_cookie_name' = The cookie name
 | 'csrf_expire' = The number in seconds the token should expire.
 */
-$config['csrf_protection'] = TRUE;
+$config['csrf_protection'] = true;
 $config['csrf_token_name'] = 'dilicms_csrf_token';
 $config['csrf_cookie_name'] = 'dilicms_csrf_cookie';
 $config['csrf_expire'] = 7200;
