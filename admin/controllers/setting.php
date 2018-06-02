@@ -65,7 +65,7 @@ class Setting extends Admin_Controller
 	    //var_dump($this->input->post());
 		$this->db->update($this->db->dbprefix('site_settings'), $this->input->post());
 		update_cache('site');
-		$this->_message("更新成功", 'setting/site', TRUE, ($this->input->get('tab') ? '/tab=' . $this->input->get('tab') : '' ));
+		$this->_message("更新成功", 'setting/site', TRUE, ($this->input->get('tab') ? '?tab=' . $this->input->get('tab') : '' ));
 	}
 	
 	// ------------------------------------------------------------------------

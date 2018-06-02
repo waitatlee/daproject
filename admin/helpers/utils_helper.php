@@ -30,10 +30,13 @@ function make_bread($flour)
  */
 function translate_number_to_tradition($string)
 {
-	return preg_replace_callback('/(\d+)/', create_function(
-		'$matches',
-		'return number_to_tradition($matches[0]);'
-	), $string);
+	//return preg_replace_callback('/(\d+)/', create_function(
+	//	'$matches',
+	//	'return number_to_tradition($matches[0]);'
+	//), $string);
+    return preg_replace_callback('/(\d+)/', function($matches){
+       return number_to_tradition($matches[0]);
+    }, $string);
 }
 
 function number_to_tradition($num){

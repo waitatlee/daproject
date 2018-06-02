@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= '';
+$config['base_url']	= 'http://admin.daproject.com/';
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ $config['base_url']	= '';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +44,7 @@ $config['index_page'] = 'index.php';
 | 'ORIG_PATH_INFO'	Uses the ORIG_PATH_INFO
 |
 */
-$config['uri_protocol']	= 'QUERY_STRING';
+$config['uri_protocol']	= 'AUTO';
 
 /*
 |--------------------------------------------------------------------------
@@ -155,7 +155,7 @@ $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 |
 */
 $config['allow_get_array']		= TRUE;
-$config['enable_query_strings'] = true;
+$config['enable_query_strings'] = false;
 $config['controller_trigger']	= 'c';
 $config['function_trigger']		= 'm';
 $config['directory_trigger']	= 'd'; // experimental not currently in use
