@@ -178,8 +178,7 @@ class Content extends Admin_Controller
 			$data['button_name'] => '',
 		));
 		
-		if ($id)
-		{
+		if ($id){
 			$this->_check_permit('edit');
 			$data['content'] = $this->db->where('id',$id)->get($this->db->dbprefix('u_m_') . $model)->row_array();
 			$data['attachment'] = $this->db->where('model', $data['model']['id'])
@@ -187,19 +186,15 @@ class Content extends Admin_Controller
 										   ->where('from', 0)
 										   ->get($this->db->dbprefix('attachments'))
 										   ->result_array();
-		}
-		else
-		{
+		}else{
 			$this->_check_permit('add');
 			$data['content'] = array();
 		}
 		
 		$this->load->library('form_validation');
 		
-		foreach ($data['model']['fields'] as $v)
-		{
-			if ($v['rules'] != '')
-			{
+		foreach ($data['model']['fields'] as $v){
+			if ($v['rules'] != ''){
 				$this->form_validation->set_rules($v['name'], $v['description'], str_replace(",", "|", $v['rules']));
 			}
 		}
@@ -207,38 +202,31 @@ class Content extends Admin_Controller
 		
 		$this->load->library('form');
 		$this->load->library('field_behavior');
-		if ($this->form_validation->run() == FALSE)
-		{
+		if ($this->form_validation->run() == FALSE){
             $thumb_preferences = json_decode($data['model']['thumb_preferences']);
             $data['thumb_default_size'] = '';
             if ($thumb_preferences and $thumb_preferences->default != 'original') {
                 $data['thumb_default_size'] = $thumb_preferences->default;
             }
  			$this->_template('content_form', $data);
-		}
-		else
-		{
+		}else{
 			$modeldata = $data['model'];
 			$data = array();
-			foreach ($modeldata['fields'] as $v)
-			{
-				if ($v['editable'])
-				{
+			foreach ($modeldata['fields'] as $v){
+				if ($v['editable']){
 					$this->field_behavior->on_do_post($v, $data);
 				}
 				
 			}
 			$attachment = $this->input->post('uploadedfile', TRUE);
-			if ($id)
-			{
+			if ($id){
 				$this->db->where('id', $id);
 				$data['update_time'] = $this->session->_get_time();
 				$data['update_user'] = $this->_admin->uid;
 				$this->plugin_manager->trigger('updating', $data , $id);
 				$this->db->update($this->db->dbprefix('u_m_') . $model, $data);
 				$this->plugin_manager->trigger('updated', $data , $id);
-				if ($attachment != '0')
-				{
+				if ($attachment != '0'){
 					$this->db->set('model', $modeldata['id'])
 							 ->set('from', 0)
 							 ->set('content', $id)
@@ -246,18 +234,14 @@ class Content extends Admin_Controller
 							 ->update($this->db->dbprefix('attachments'));	
 				}
 				$this->_message('修改成功！', 'content/form', TRUE, '?model=' . $modeldata['name'] . '&id=' . $id);
-			}
-			else
-			{
-			    
+			}else{
 				$data['create_time'] = $data['update_time'] = $this->session->_get_time();
 				$data['create_user'] = $data['update_user'] = $this->_admin->uid;
 			    $this->plugin_manager->trigger('inserting', $data);
 				$this->db->insert($this->db->dbprefix('u_m_') . $model, $data);
 				$id = $this->db->insert_id();
 				$this->plugin_manager->trigger('inserted', $data, $id);
-				if ($attachment != '0')
-				{
+				if ($attachment != '0'){
 					$this->db->set('model', $modeldata['id'])
 							 ->set('from', 0)
 							 ->set('content', $id)
@@ -267,7 +251,6 @@ class Content extends Admin_Controller
 				$this->_message('添加成功！', 'content/view', TRUE, '?model=' . $modeldata['name']);	
 			}
 		}
-		
 	}
 	
 	// ------------------------------------------------------------------------

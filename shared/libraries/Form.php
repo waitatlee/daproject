@@ -52,9 +52,9 @@ class Form
 	{
 		$this->_find_real_value($field['name'], $default);
 		$type = '_'.$field['type']; 
-		if ($has_tip)
-		{
-			echo  $this->_add_tip($field['ruledescription'], $this->$type($field, $default, $allow_upload));
+		if ($has_tip){
+            $type = $this->$type($field, $default, $allow_upload);
+			echo  $this->_add_tip($field['ruledescription'], $type);
 		}
 		else
 		{

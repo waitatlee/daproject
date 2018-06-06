@@ -212,9 +212,9 @@ class Category_content extends Admin_Controller
 		$this->settings->load('category/cate_' . $model);
 		$data['model'] = $this->settings->item('cate_models');
 		$data['model'] = $data['model'][$model];
+		//var_dump($data['model']);die;
 		$id = $this->input->get('id');
-		if ($id)
-		{
+		if ($id){
 			$this->_check_permit('edit');
 			$data['content'] = $this->db->where('classid', $id)->get($this->db->dbprefix('u_c_') . $model)->row_array();
 			$data['attachment'] = $this->db->where('model', $data['model']['id'])
@@ -224,24 +224,19 @@ class Category_content extends Admin_Controller
 										   ->result_array();
 			$data['parentid'] = $data['content']['parentid'];
 			$data['button_name'] = '编辑';
-		}
-		else
-		{
+		}else{
 			$this->_check_permit('add');
 			$data['parentid'] = $this->input->get('u_c_level') ? $this->input->get('u_c_level') : 0;
 			$data['content'] = array();
 			$data['button_name'] = '添加';
 		}
 
-		if ($data['parentid'] > 0)
-		{
+		if ($data['parentid'] > 0){
 			$current_level = $this->db->where('classid', $data['parentid'])
 									  ->get($this->db->dbprefix('u_c_') . $model)
 									  ->row()
 									  ->level + 1;
-		}
-		else
-		{
+		}else{
 			$current_level = 1;
 		}
 
@@ -250,27 +245,21 @@ class Category_content extends Admin_Controller
 
 		$this->load->library('form_validation');
 
-		foreach ($data['model']['fields'] as $v)
-		{
-			if ($v['rules'] != '')
-			{
+		foreach ($data['model']['fields'] as $v){
+			if ($v['rules'] != ''){
 				$this->form_validation->set_rules($v['name'], $v['description'], str_replace(",", "|", $v['rules']));
 			}
 		}
 
 		$this->load->library('form');
 		$this->load->library('field_behavior');
-		if ($this->form_validation->run() == FALSE)
-		{
-
+		if ($this->form_validation->run() == FALSE){
 			$bread = Array(
 				'分类管理' => '',
 				$data['model']['description'] => site_url('category_content/view?model=' . $data['model']['name']),
 			);
-			if($data['path'])
-			{
-				foreach($data['path'] as $path)
-				{
+			if($data['path']){
+				foreach($data['path'] as $path){
 					$bread[ translate_number_to_tradition($path) ] = '';
 				}
 			}
@@ -282,36 +271,28 @@ class Category_content extends Admin_Controller
             if ($thumb_preferences and $thumb_preferences->default != 'original') {
                 $data['thumb_default_size'] = $thumb_preferences->default;
             }
-
+            //var_dump($data);die;
 			$this->_template('category_content_form', $data);
-		}
-		else
-		{
+		}else{
 			$modeldata = $data['model'];
 			$data = array();
-			foreach ($modeldata['fields'] as $v)
-			{
-				if ($v['editable'])
-				{
+			foreach ($modeldata['fields'] as $v){
+				if ($v['editable']){
 					$this->field_behavior->on_do_post($v, $data);
 				}
 			}
 			$data['parentid'] = $this->input->post('parentid', TRUE);
 			//获取path
-			if ($data['parentid'] > 0)
-			{
+			if ($data['parentid'] > 0){
 				//如果不是顶级分类，就读其path数据
 				$data['path'] = '{0}';
 				$data['level'] = 1;
 				$parent_class = $this->db->where('classid', $data['parentid'])->get($this->db->dbprefix('u_c_') . $model)->row();
 
-				if ($parent_class)
-				{
+				if ($parent_class){
                     $data['path'] = $parent_class->path;
 					$data['level'] = $parent_class->level + 1;
-				}
-                else
-                {
+				}else{
                     $this->_message('不存在的顶级分类!', '', FALSE);
                 }
 				$data['path'] .= ',{'.$data['parentid'].'}';
@@ -321,14 +302,12 @@ class Category_content extends Admin_Controller
             }
 			$attachment = $this->input->post('uploadedfile', TRUE);
 
-			if ($id)
-			{
+			if ($id){
 				$this->plugin_manager->trigger('updating', $data, $id);
 				$this->db->where('classid', $id);
 				$this->db->update($this->db->dbprefix('u_c_') . $model,$data);
 				$this->plugin_manager->trigger('updated', $data, $id);
-				if ($attachment != '0')
-				{
+				if ($attachment != '0'){
 					$this->db->set('model', $modeldata['id'])
 							 ->set('from', 1)
 							 ->set('content', $id)
@@ -339,15 +318,12 @@ class Category_content extends Admin_Controller
                     update_cache('category', $model);
                 }
 				$this->_message('修改成功!', 'category_content/form', TRUE, '?model=' . $modeldata['name'] . '&id=' . $id);
-			}
-			else
-			{
+			}else{
 				$this->plugin_manager->trigger('inserting', $data);
 				$this->db->insert($this->db->dbprefix('u_c_') . $model,$data);
 				$id = $this->db->insert_id();
 				$this->plugin_manager->trigger('inserted', $data, $id);
-				if($attachment != '0')
-				{
+				if($attachment != '0'){
 					$this->db->set('model',$modeldata['id'])->set('from',1)->set('content',$id)->where('aid in ('.$attachment.')')->update($this->db->dbprefix('attachments'));
 				}
                 if ($modeldata['auto_update']) {

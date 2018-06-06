@@ -233,15 +233,11 @@ class Field_behavior
      */
 	public function on_list($field, $value)
 	{
-		if ($this->_is_extra($field['type']))
-		{
+		if ($this->_is_extra($field['type'])){
 			$this->_load_extra_field($field['type']);
 			$this->_extra_fields[$field['type']]->on_list($field,  $value);
-		}
-		else
-		{
-			switch ($field['type'])
-			{
+		}else{
+			switch ($field['type']){
 				case 'radio' 	:
 				case 'select'	:
 							echo isset($field['values'][$value->$field['name']]) ?  $field['values'][$value->$field['name']] : 'undefined' ;
@@ -298,7 +294,8 @@ class Field_behavior
 							}
 							break;
 				default :
-							echo $value->$field['name'];
+                    $fieldName = $field['name'];
+					echo $value->$fieldName;
 			}
 		}
 	}
