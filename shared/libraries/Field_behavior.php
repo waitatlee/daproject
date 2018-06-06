@@ -237,13 +237,14 @@ class Field_behavior
 			$this->_load_extra_field($field['type']);
 			$this->_extra_fields[$field['type']]->on_list($field,  $value);
 		}else{
+		    $fieldName = $field['name'];
 			switch ($field['type']){
 				case 'radio' 	:
 				case 'select'	:
-							echo isset($field['values'][$value->$field['name']]) ?  $field['values'][$value->$field['name']] : 'undefined' ;
+							echo isset($field['values'][$value->$fieldName]) ?  $field['values'][$value->$fieldName] : 'undefined' ;
 							break;
 				case 'checkbox' :
-							foreach (explode(',', $value->$field['name']) as $t)
+							foreach (explode(',', $value->$fieldName) as $t)
 							{
 								echo isset($field['values'][$t]) ?  $field['values'][$t] . '<br />' : 'undefined' . '<br />';
 							}
