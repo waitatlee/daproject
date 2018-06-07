@@ -244,8 +244,7 @@ class Field_behavior
 							echo isset($field['values'][$value->$fieldName]) ?  $field['values'][$value->$fieldName] : 'undefined' ;
 							break;
 				case 'checkbox' :
-							foreach (explode(',', $value->$fieldName) as $t)
-							{
+							foreach (explode(',', $value->$fieldName) as $t){
 								echo isset($field['values'][$t]) ?  $field['values'][$t] . '<br />' : 'undefined' . '<br />';
 							}
 							break;
@@ -254,13 +253,13 @@ class Field_behavior
 							$options = explode('|', $field['values']);
 							$this->_ci->settings->load('category/data_' . $options[0]);
 							$setting = & setting('category');
-							echo isset($setting[$options[0]][$value->$field['name']][$options[1]]) ? $setting[$options[0]][$value->$field['name']][$options[1]] : 'undefined' ;
+							echo isset($setting[$options[0]][$value->$fieldName][$options[1]]) ? $setting[$options[0]][$value->$fieldName][$options[1]] : 'undefined' ;
 							break;
 				case 'checkbox_from_model':
 							$options = explode('|', $field['values']);
 							$this->_ci->settings->load('category/data_' . $options[0]);
 							$setting = & setting('category');
-							$checkbox_values = explode(',', $value->$field['name']);
+							$checkbox_values = explode(',', $value->$fieldName);
 							foreach ($checkbox_values as $checkbox)
 							{
 								echo isset($setting[$options[0]][$checkbox][$options[1]]) ? $setting[$options[0]][$checkbox][$options[1]].'<br />' : 'undefined<br />' ;
@@ -270,7 +269,7 @@ class Field_behavior
 							$options = explode('|', $field['values']);
 							$this->_ci->settings->load('category/data_' . $options[0]);
 							$setting = & setting('category');
-							$temp_out = explode('|', $value->$field['name']);
+							$temp_out = explode('|', $value->$fieldName);
 							foreach ($temp_out as & $t)
 							{
 								$t = str_replace(',', '', $t);
@@ -285,12 +284,9 @@ class Field_behavior
 							break;
 				case 'content':
 							$options = explode('|', $field['values']);
-							if ($value->$field['name'] AND $row = $this->_ci->db->select('id, '.$options[1])->where('id', $value->$field['name'])->get('u_m_'.$options[0])->row_array())
-							{
+							if ($value->$fieldName AND $row = $this->_ci->db->select('id, '.$options[1])->where('id', $value->$fieldName)->get('u_m_'.$options[0])->row_array()){
 								echo $row[$options[1]];
-							}
-							else
-							{
+							}else{
 								echo '-';
 							}
 							break;

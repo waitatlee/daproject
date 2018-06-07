@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50636
 File Encoding         : 65001
 
-Date: 2018-05-29 18:49:18
+Date: 2018-06-07 17:47:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,12 +30,13 @@ CREATE TABLE `dp_admins` (
   PRIMARY KEY (`uid`),
   UNIQUE KEY `username` (`username`),
   KEY `group` (`role`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dp_admins
 -- ----------------------------
-INSERT INTO `dp_admins` VALUES ('1', 'admin', '61d18ff93e3e6d43a4a9bd6e90d440e2f58e3e9e', '034552bde9', 'hello@dilicms.com', '1', '1');
+INSERT INTO `dp_admins` VALUES ('1', 'admin', '3abff3e2dafa82cf67eb629a23ffad1c4b89cced', '9ee6e643af', 'hello@dilicms.com', '1', '1');
+INSERT INTO `dp_admins` VALUES ('2', 'waitatlee', '9d9aea41f8fbc1bd9cd4525143fdb93348fed362', '11eedf8abd', 'waitatlee@qq.com', '2', '1');
 
 -- ----------------------------
 -- Table structure for dp_attachments
@@ -54,11 +55,19 @@ CREATE TABLE `dp_attachments` (
   `image` tinyint(1) DEFAULT '0',
   `posttime` int(11) DEFAULT '0',
   PRIMARY KEY (`aid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dp_attachments
 -- ----------------------------
+INSERT INTO `dp_attachments` VALUES ('1', '1', '0', '0', '0', '1528277603f067a1f18ef8456d', '2018/06', '9442fa52-7638-47d4-8bd3-b69a1621a911(2)', 'jpg', '1', '1528277603');
+INSERT INTO `dp_attachments` VALUES ('2', '1', '0', '0', '0', '15283545702d37e44118da3a7a', '2018/06', '9442fa52-7638-47d4-8bd3-b69a1621a911(2)', 'jpg', '1', '1528354570');
+INSERT INTO `dp_attachments` VALUES ('3', '1', '0', '0', '0', '15283578418f08e2cb8f6fc615', '2018/06', '9442fa52-7638-47d4-8bd3-b69a1621a911(2)', 'jpg', '1', '1528357841');
+INSERT INTO `dp_attachments` VALUES ('4', '1', '0', '0', '0', '1528358941cae77d86b914238f', '2018/06', '9442fa52-7638-47d4-8bd3-b69a1621a911(2)', 'jpg', '1', '1528358941');
+INSERT INTO `dp_attachments` VALUES ('5', '1', '0', '0', '0', '1528358955935208688fb41940', '2018/06', '9442fa52-7638-47d4-8bd3-b69a1621a911(2)', 'jpg', '1', '1528358955');
+INSERT INTO `dp_attachments` VALUES ('6', '1', '0', '0', '0', '1528359231cb4237ad39324f83', '2018/06', '9442fa52-7638-47d4-8bd3-b69a1621a911(2)', 'jpg', '1', '1528359231');
+INSERT INTO `dp_attachments` VALUES ('7', '1', '0', '0', '0', '1528359763a47ca70dcdc63704', '2018/06', '9442fa52-7638-47d4-8bd3-b69a1621a911(2)', 'jpg', '1', '1528359763');
+INSERT INTO `dp_attachments` VALUES ('8', '1', '0', '0', '0', '15283643469455a2d68478cca5', '2018/06', 'LOGO(28X28)', 'png', '1', '1528364346');
 
 -- ----------------------------
 -- Table structure for dp_backend_settings
@@ -80,7 +89,7 @@ CREATE TABLE `dp_backend_settings` (
 -- ----------------------------
 -- Records of dp_backend_settings
 -- ----------------------------
-INSERT INTO `dp_backend_settings` VALUES ('default', 'zh-cn', '1', '', 'DiliCMS', 'images/logo.gif', '0', '0', null, null);
+INSERT INTO `dp_backend_settings` VALUES ('default', 'zh-cn', '1', '', '达项目', 'images/logo.gif', '0', '0', '', '');
 
 -- ----------------------------
 -- Table structure for dp_cate_fields
@@ -105,11 +114,16 @@ CREATE TABLE `dp_cate_fields` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`,`model`),
   KEY `model` (`model`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dp_cate_fields
 -- ----------------------------
+INSERT INTO `dp_cate_fields` VALUES ('1', 'n_id', '主键', '1', 'int', '11', '', '0', '0', 'required', '自增长字段', '0', '1', '1', '1');
+INSERT INTO `dp_cate_fields` VALUES ('2', 'n_title', '新闻标题', '1', 'input', '0', '', '150', '20', 'required', '', '1', '1', '2', '1');
+INSERT INTO `dp_cate_fields` VALUES ('3', 'n_content', '新闻内容', '1', 'wysiwyg', '0', '', '600', '300', 'required', '', '0', '1', '5', '1');
+INSERT INTO `dp_cate_fields` VALUES ('4', 'n_create_at', '创建时间', '1', 'datetime', '0', '', '150', '20', '', '', '0', '1', '3', '0');
+INSERT INTO `dp_cate_fields` VALUES ('5', 'n_del', '是否启用', '1', 'radio', '3', '0=启用|1=禁用', '30', '30', 'required', '0表示不删除, 1表示删除', '0', '1', '4', '1');
 
 -- ----------------------------
 -- Table structure for dp_cate_models
@@ -127,11 +141,12 @@ CREATE TABLE `dp_cate_models` (
   `thumb_preferences` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dp_cate_models
 -- ----------------------------
+INSERT INTO `dp_cate_models` VALUES ('1', 'news', '新闻中心', '20', '3', '1', '0', '1', '{\"enabled\":[\"40x40\"],\"default\":\"original\"}');
 
 -- ----------------------------
 -- Table structure for dp_fieldtypes
@@ -226,11 +241,13 @@ CREATE TABLE `dp_model_fields` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`,`model`),
   KEY `model` (`model`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dp_model_fields
 -- ----------------------------
+INSERT INTO `dp_model_fields` VALUES ('1', 'nc_id', '主键', '1', 'int', '11', '', '150', '20', 'required', '', '0', '1', '1', '1');
+INSERT INTO `dp_model_fields` VALUES ('2', 'nc_content', '内容', '1', 'wysiwyg', '255', '', '600', '300', 'required', '', '1', '1', '2', '1');
 
 -- ----------------------------
 -- Table structure for dp_models
@@ -246,11 +263,12 @@ CREATE TABLE `dp_models` (
   `thumb_preferences` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dp_models
 -- ----------------------------
+INSERT INTO `dp_models` VALUES ('1', 'news_content', '新闻内容列表', '20', '1', '0', '{\"enabled\":[\"40x40\"],\"default\":\"original\"}');
 
 -- ----------------------------
 -- Table structure for dp_plugins
@@ -357,12 +375,13 @@ CREATE TABLE `dp_roles` (
   `plugins` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dp_roles
 -- ----------------------------
 INSERT INTO `dp_roles` VALUES ('1', 'root', '', '', '', '');
+INSERT INTO `dp_roles` VALUES ('2', '运营小组', '1,23,28,33,38', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for dp_sessions
@@ -381,7 +400,7 @@ CREATE TABLE `dp_sessions` (
 -- ----------------------------
 -- Records of dp_sessions
 -- ----------------------------
-INSERT INTO `dp_sessions` VALUES ('3564eea51787e600bb2368133ae93975', '10.0.2.2', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0', '1527586918', 'a:1:{s:3:\"uid\";s:1:\"1\";}');
+INSERT INTO `dp_sessions` VALUES ('34f24b75878483991bbefd4297927695', '10.0.2.2', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0', '1528364305', 'a:4:{s:9:\"user_data\";s:0:\"\";s:3:\"uid\";s:1:\"1\";s:10:\"model_type\";s:5:\"model\";s:5:\"model\";s:12:\"news_content\";}');
 
 -- ----------------------------
 -- Table structure for dp_site_settings
@@ -410,7 +429,7 @@ CREATE TABLE `dp_site_settings` (
 -- ----------------------------
 -- Records of dp_site_settings
 -- ----------------------------
-INSERT INTO `dp_site_settings` VALUES ('DiliCMS', 'http://www.dilicms.com/', 'images/logo.gif', '', '', '', '', '1', '网站维护升级中......', 'DiliCMS,CodeIgniter,DiliCMS最新版', 'DiliCMS 基于CodeIgniter的开源免费 专业面向开发者的CMS系统', 'default', null, 'attachments', '*.jpg;*.gif;*.png;*.doc', '2097152', '[]');
+INSERT INTO `dp_site_settings` VALUES ('daproject', 'http://admin.daproject.com', 'images/logo.gif', '', '一经注册, 不能后悔<br />', '', '', '1', '达叔维护升级中.....', '达项目', '达项目', 'default', 'http://attach.daproject.com', 'attachments', '*.jpg;*.gif;*.png;*.doc,*.pdf,*.doc,*.docx,*.xls,*', '10097152', '[{\"size\":\"60\",\"rule\":\"fitWidth\"},{\"size\":\"20x20\",\"rule\":\"crop\"},{\"size\":\"40x40\",\"rule\":\"fit\"},{\"size\":\"80x80\",\"rule\":\"fill\"}]');
 
 -- ----------------------------
 -- Table structure for dp_throttles
@@ -429,6 +448,49 @@ CREATE TABLE `dp_throttles` (
 -- ----------------------------
 -- Records of dp_throttles
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for dp_u_c_news
+-- ----------------------------
+DROP TABLE IF EXISTS `dp_u_c_news`;
+CREATE TABLE `dp_u_c_news` (
+  `classid` int(5) unsigned NOT NULL AUTO_INCREMENT,
+  `parentid` int(5) unsigned NOT NULL DEFAULT '0',
+  `level` int(2) unsigned NOT NULL DEFAULT '1',
+  `path` varchar(50) DEFAULT '',
+  `n_id` int(11) NOT NULL DEFAULT '0',
+  `n_title` varchar(100) NOT NULL DEFAULT '',
+  `n_content` text NOT NULL,
+  `n_create_at` varchar(100) NOT NULL DEFAULT '',
+  `n_del` varchar(3) NOT NULL DEFAULT '',
+  PRIMARY KEY (`classid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dp_u_c_news
+-- ----------------------------
+INSERT INTO `dp_u_c_news` VALUES ('1', '0', '1', '{0}', '1', '快讯', '路边社', '', '0');
+
+-- ----------------------------
+-- Table structure for dp_u_m_news_content
+-- ----------------------------
+DROP TABLE IF EXISTS `dp_u_m_news_content`;
+CREATE TABLE `dp_u_m_news_content` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0',
+  `create_user` tinyint(10) unsigned NOT NULL DEFAULT '0',
+  `update_user` tinyint(10) unsigned NOT NULL DEFAULT '0',
+  `nc_id` int(11) NOT NULL DEFAULT '0',
+  `nc_content` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dp_u_m_news_content
+-- ----------------------------
+INSERT INTO `dp_u_m_news_content` VALUES ('3', '1528278429', '1528278429', '1', '1', '1', '大大');
+INSERT INTO `dp_u_m_news_content` VALUES ('4', '1528278764', '1528278764', '1', '1', '2', '大大');
 
 -- ----------------------------
 -- Table structure for dp_validations
