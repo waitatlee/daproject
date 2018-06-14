@@ -71,7 +71,6 @@ function &DB($params = '', $active_record_override = NULL)
 		{
 			show_error('Invalid DB Connection String');
 		}
-
 		$params = array(
 							'dbdriver'	=> 'mysqli',
 							'hostname'	=> (isset($dns['host'])) ? rawurldecode($dns['host']) : '',
@@ -141,6 +140,7 @@ function &DB($params = '', $active_record_override = NULL)
 
 	// Instantiate the DB adapter
 	$driver = 'CI_DB_'.$params['dbdriver'].'_driver';
+	//var_dump($params);die;
 	$DB = new $driver($params);
 
 	if ($DB->autoinit == TRUE)

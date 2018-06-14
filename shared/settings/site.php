@@ -1,0 +1,20 @@
+<?php if ( ! defined('IN_DILICMS')) exit('No direct script access allowed');
+$setting=array (
+  'site_name' => 'daproject',
+  'site_domain' => 'http://admin.daproject.com',
+  'site_logo' => 'images/logo.gif',
+  'site_icp' => '',
+  'site_terms' => '一经注册, 不能后悔<br />',
+  'site_stats' => '',
+  'site_footer' => '',
+  'site_status' => '1',
+  'site_close_reason' => '达叔维护升级中.....',
+  'site_keyword' => '达项目',
+  'site_description' => '达项目',
+  'site_theme' => 'default',
+  'attachment_url' => 'http://attach.daproject.com',
+  'attachment_dir' => 'attachments',
+  'attachment_type' => '*.jpg;*.gif;*.png;*.doc,*.pdf,*.doc,*.docx,*.xls,*',
+  'attachment_maxupload' => '10097152',
+  'thumbs_preferences' => '[{"size":"60","rule":"fitWidth"},{"size":"20x20","rule":"crop"},{"size":"40x40","rule":"fit"},{"size":"80x80","rule":"fill"}]',
+);
