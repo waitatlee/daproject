@@ -52,7 +52,7 @@ $autoload['packages'] = array(DILICMS_SHARE_PATH);
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('platform', 'settings');
+$autoload['libraries'] = array('platform', 'settings', 'session');
 
 
 /*
@@ -110,7 +110,6 @@ $autoload['language'] = array();
 */
 
 $autoload['model'] = array();
-
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */

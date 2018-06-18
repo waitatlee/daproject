@@ -62,10 +62,8 @@ abstract class Admin_Controller extends CI_Controller
      * @access  protected
      * @return  void
      */
-    protected function _check_http_auth()
-    {
-        if (setting('backend_http_auth_on'))
-        {
+    protected function _check_http_auth(){
+        if (setting('backend_http_auth_on')){
             $user = $this->input->server('PHP_AUTH_USER');
             $passwword = $this->input->server('PHP_AUTH_PW');
             if (! $user or ! $passwword or $user != setting('backend_http_auth_user') or $passwword != setting('backend_http_auth_password')) {
@@ -85,17 +83,12 @@ abstract class Admin_Controller extends CI_Controller
      * @access  protected
      * @return  void
      */
-	protected function _check_login()
-	{
-		if ( ! $this->session->userdata('uid'))
-		{   
+	protected function _check_login(){
+		if ( ! $this->session->userdata('uid')){
 			redirect(setting('backend_access_point') . '/login');
-		}
-		else
-		{
+		}else{
 			$this->_admin = $this->user_mdl->get_full_user_by_username($this->session->userdata('uid'), 'uid');
-			if ($this->_admin->status != 1)
-			{
+			if ($this->_admin->status != 1){
 				$this->session->set_flashdata('error', "此帐号已被冻结,请联系管理员!");
 				redirect(setting('backend_access_point') . '/login');
 			}
@@ -151,12 +144,9 @@ abstract class Admin_Controller extends CI_Controller
      */
 	public function _message($msg, $goto = '', $auto = TRUE, $fix = '', $pause = 3000)
 	{
-		if($goto == '')
-		{
+		if($goto == ''){
 			$goto = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : site_url();
-		}
-		else
-		{
+		}else{
 			$goto = strpos($goto, 'http') !== false ? $goto : backend_url($goto);	
 		}
 		$goto .= $fix;

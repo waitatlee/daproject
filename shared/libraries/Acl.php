@@ -356,17 +356,16 @@ class Acl
      * 检测插件
      *
      * @access  public
-     * @param   string
-     * @return  void
+     * @param string $act
+     * @param string $folder
+     * @return  boolean
      */
-	public function permit($act = '', $folder = '')
-	{
-		if ($this->ci->_admin->role == 1)
-		{
-			return TRUE;	
+	public function permit($act = '', $folder = ''){
+		if ($this->ci->_admin->role == 1) {
+			return TRUE;
 		}
 		$class_method = $folder . $this->ci->uri->rsegment(1) . '@' . $this->ci->uri->rsegment(2) . ($act ? '@' . $act : '');
-		if ( ! in_array($class_method,$this->rights['rights']))
+		if ( ! in_array($class_method, $this->rights['rights']))
 		{
 			return FALSE;	
 		}
