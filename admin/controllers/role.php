@@ -77,16 +77,11 @@ class Role extends Admin_Controller
 	public function _add_post()
 	{
 		$data = $this->role_mdl->get_form_data();
-		if ( ! $this->_validate_role_form())
-		{
+		if (!$this->_validate_role_form()){
 			$this->_template('role_add', $data);
-		}
-		else
-		{
+		}else{
 			$role_id = $this->role_mdl->add_role($this->_get_form_data());
-			
 			update_cache('role', $role_id);
-			
 			$this->_message('用户组添加成功!', 'role/view', TRUE);	
 		}
 	}
@@ -118,16 +113,12 @@ class Role extends Admin_Controller
 	{
 		$data = $this->role_mdl->get_form_data();
 		$data['role'] = $this->role_mdl->get_role_by_id($id);
-		if ( ! $data['role'])
-		{
+		if ( ! $data['role']){
 			$this->_message('不存在的用户组', '', FALSE);
 		}
-		if ( ! $this->_validate_role_form($data['role']->name))
-		{
+		if ( ! $this->_validate_role_form($data['role']->name)){
 			$this->_template('role_edit', $data);
-		}
-		else
-		{
+		}else{
 			$this->role_mdl->edit_role($id, $this->_get_form_data());
 			update_cache('role', $id);
 			$this->_message('用户组修改成功!', 'role/edit/' . $id, TRUE);
@@ -146,12 +137,10 @@ class Role extends Admin_Controller
 	public function del($id = 0)
 	{
 		$role = $this->role_mdl->get_role_by_id($id);
-		if ( ! $role)
-		{
+		if ( ! $role){
 			$this->_message('不存在的用户组', '', FALSE);
 		}
-		if ($this->role_mdl->get_role_user_num($id) > 0)
-		{
+		if ($this->role_mdl->get_role_user_num($id) > 0){
 			$this->_message('该用户组下有用户不允许删除!', '', FALSE);
 		}	
 		$this->role_mdl->del_role($id);
@@ -167,10 +156,8 @@ class Role extends Admin_Controller
      * @param   string
      * @return  bool
      */
-	public function _check_role_name($name = '')
-	{
-		if ($this->role_mdl->get_role_by_name($name))
-		{
+	public function _check_role_name($name = ''){
+		if ($this->role_mdl->get_role_by_name($name)){
 			$this->form_validation->set_message('_check_role_name', '已经存在的用户组名称！');
 			return FALSE;		
 		}

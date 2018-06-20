@@ -207,7 +207,16 @@ class Settings
 	}
 
 	// ------------------------------------------------------------------------
-	
+
+    /**
+     * 判断是否测试环境
+     * @return bool
+     */
+    function isDebug(){
+        return in_array(ENVIRONMENT, [
+            'development', 'testing'
+        ]);
+    }
 }
 
 /* End of file Settings.php */

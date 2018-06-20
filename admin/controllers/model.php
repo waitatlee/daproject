@@ -104,9 +104,7 @@ class Model extends Admin_Controller
 			update_cache('menu');
 			
 			$this->_message('内容模型添加成功!', 'model/view', TRUE);
-		}
-		else
-		{
+		}else{
 			$data['bread'] = make_bread(Array(
 				'模型管理' => '',
 				'内容模型管理' => site_url('model/view'),

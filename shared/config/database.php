@@ -55,7 +55,7 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = '127.0.0.1';
 $db['default']['username'] = 'root';
-$db['default']['password'] = '123456';
+$db['default']['password'] = 'Mars7299011!';
 $db['default']['database'] = 'daproject';
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = 'dp_';

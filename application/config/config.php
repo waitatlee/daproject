@@ -14,7 +14,12 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://www.daproject.com/';
+
+if(in_array(ENVIRONMENT, ['development', 'testing'])){
+    $config['base_url']	= 'http://www.daproject.com/';
+}else{
+    $config['base_url']	= 'http://cm.jentian.com/';
+}
 
 /*
 |--------------------------------------------------------------------------

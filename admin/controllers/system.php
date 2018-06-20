@@ -79,21 +79,15 @@ class System extends Admin_Controller
 		$this->form_validation->set_rules('old_pass', "旧密码", 'required');
 		$this->form_validation->set_rules('new_pass', "新密码", 'required|min_length[6]|max_length[16]|match[new_pass_confirm]');
 		$this->form_validation->set_rules('new_pass_confirm', "确认新密码", 'required|min_length[6]|max_length[16]');
-		if ($this->form_validation->run() == FALSE)
-		{
-			$this->_template('sys_password');
-		}
-		else
-		{
+		if ($this->form_validation->run() == FALSE){
+            $this->_template('sys_password');
+        }else{
 			$old_pass = sha1(trim($this->input->post('old_pass', TRUE)).$this->_admin->salt);
 			$stored = $this->user_mdl->get_user_by_uid($this->session->userdata('uid'));
-			if ($stored AND $old_pass == $stored->password)
-			{
+			if ($stored AND $old_pass == $stored->password){
 				$this->user_mdl->update_user_password();
 				$this->_message("密码更新成功!", '', TRUE);	
-			}
-			else
-			{
+			}else{
 				$this->_message("密码验证失败!", '', TRUE);
 			}
 		}
@@ -125,8 +119,7 @@ class System extends Admin_Controller
 	{
 		$this->_check_permit();
 		$cache = $this->input->post('cache');
-		if ($cache AND is_array($cache))
-		{
+		if ($cache AND is_array($cache)){
 			update_cache($cache);
 		}
 		$this->_message("缓存更新成功！", '', TRUE);	
@@ -137,4 +130,4 @@ class System extends Admin_Controller
 }
 
 /* End of file system.php */
-/* Location: ./admin/controllers/syestem.php */
+/* Location: ./admin/controllers/system.php */
