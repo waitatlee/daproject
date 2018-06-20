@@ -17,10 +17,12 @@
 
 if(in_array(ENVIRONMENT, ['development', 'testing'])){
     $config['base_url']	= 'http://www.daproject.com/';
+    $staticHost = 'http://static.daproject.com';
 }else{
     $config['base_url']	= 'http://cm.jentian.com/';
+    $staticHost = 'http://cm-static.jentian.com';
 }
-
+define('STATIC_HOST', $staticHost);
 /*
 |--------------------------------------------------------------------------
 | Index File

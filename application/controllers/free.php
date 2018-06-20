@@ -20,6 +20,7 @@ class Free extends CI_Controller {
 	    if(empty($this->session->userdata('wechatOpenId'))){
             redirect('/free/auth');
         }else{
+	        $this->load->helper('form');
 	        $data['isSubscribe'] = true;
             $this->load->view('free_form.php', $data);
         }
@@ -27,17 +28,24 @@ class Free extends CI_Controller {
 
     /**
      * 提交手机验证请求
+     *
+     * @access public
+     * @return string
      */
-    public function _handle_post(){
+    public function handle(){
         $this->load->library('form_validation');
+        $this->load->library('tools');
         $this->form_validation->set_rules('mobile', "手机号码", 'required|callback_mobile_check');
-        $this->_message('提交成功');
+        Tools::reply([
+            'success' => true,
+            'msg' => '提交成功'
+        ]);
     }
 
     /**
      * 校验手机号
      * @param $mobile
-     * @return int
+     * @return mixed
      */
     function mobile_check($mobile){
         $isMobile = preg_match('/^[1][3,4,5,7,8][0-9]{9}$/', $mobile);
