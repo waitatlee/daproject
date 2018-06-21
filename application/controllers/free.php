@@ -34,24 +34,32 @@ class Free extends CI_Controller {
      */
     public function handle(){
         $this->load->library('form_validation');
-        $this->load->library('tools');
-        $this->form_validation->set_rules('mobile', "手机号码", 'required|callback_mobile_check');
-        Tools::reply([
-            'success' => true,
-            'msg' => '提交成功'
+        $this->load->model('Mobile_area_model');
+        $this->load->model('Free_cost_user_model');
+        $mobile = $this->input->post('mobile');
+        if(!Tools::isMobile($mobile)){
+            Tools::fail('手机格式错误');
+        }
+        $area = $this->Mobile_area_model->get($mobile);
+        if(empty($area)){
+            Tools::fail('您的手机号归属地无法识别,若是广东移动用户,请留言给公众号管理员处理');
+        }
+        if($area['province'] != '广东' || $area['tel_company'] == '中国移动'){
+            Tools::fail('本活动仅限广东移动用户参与');
+        }
+        $res = $this->Free_cost_user_model->add([
+            'mobile' => $mobile
         ]);
+        Tools::reply($res);
     }
 
     /**
      * 校验手机号
-     * @param $mobile
+     * @param $mobile string 手机号码
      * @return mixed
      */
-    function mobile_check($mobile){
-        $isMobile = preg_match('/^[1][3,4,5,7,8][0-9]{9}$/', $mobile);
-        if(!$isMobile){
-            $this->form_validation->set_message('mobile', '手机号码格式错误');
-        }
+    public function mobile_check($mobile){
+
     }
 }
 

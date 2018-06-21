@@ -31,9 +31,9 @@ class CI_Model {
 	 *
 	 * @access public
 	 */
-	function __construct()
-	{
+	function __construct(){
 		log_message('debug', "Model Class Initialized");
+		$this->load->database();
 	}
 
 	/**
