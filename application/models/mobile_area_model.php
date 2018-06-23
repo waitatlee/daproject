@@ -21,9 +21,6 @@ class Mobile_area_model extends CI_Model{
         $prefix = substr($mobile, 0, 7);
         $query = $this->db->query('SELECT * FROM mobile_area WHERE prefix = '.$prefix.' LIMIT 1');
         $row = $query->row_array();
-        if(count($row) > 0){
-            return $row;
-        }
-        return [];
+        return $row;
     }
 }

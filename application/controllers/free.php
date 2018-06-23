@@ -10,9 +10,17 @@ class Free extends CI_Controller {
      * 获取微信授权
      */
 	public function auth(){
-	    $this->session->set_userdata('wechatOpenId', 'da1234');
+	    $this->load->model('Access_token_model');
+        $accessToken = $this->Access_token_model->get();
+        echo $accessToken;die;
         redirect('/free/form');
     }
+
+    public function getOpenId(){
+	    $redirectUrl = BASE_URL.'wechat/callback';
+        $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.APP_ID.'&redirect_uri=REDIRECT_URI&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect$url = https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect';
+    }
+
     /**
      * 显示提交手机号的表单
      */
@@ -51,15 +59,6 @@ class Free extends CI_Controller {
             'mobile' => $mobile
         ]);
         Tools::reply($res);
-    }
-
-    /**
-     * 校验手机号
-     * @param $mobile string 手机号码
-     * @return mixed
-     */
-    public function mobile_check($mobile){
-
     }
 }
 

@@ -101,4 +101,46 @@ class Tools{
         }
         return $outputData;
     }
+
+    /**
+     * 使用curl模拟进行get请求
+     * @param $url string 网址
+     * @return mixed
+     */
+    public static function curlGet($url){
+        $oCurl = curl_init();
+        if(stripos($url,"https://") !== FALSE){
+            curl_setopt($oCurl, CURLOPT_SSL_VERIFYPEER, FALSE);
+            curl_setopt($oCurl, CURLOPT_SSL_VERIFYHOST, FALSE);
+            curl_setopt($oCurl, CURLOPT_SSLVERSION, 1); //CURL_SSLVERSION_TLSv1
+        }
+        curl_setopt($oCurl, CURLOPT_URL, $url);
+        curl_setopt($oCurl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($oCurl, CURLOPT_TIMEOUT, 3);//设置3秒超时
+        curl_setopt($oCurl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
+        curl_setopt($oCurl, CURLOPT_HTTPHEADER, array("Expect: "));
+        curl_setopt($oCurl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4); //强制使用IPV4协议解析域名
+        //增加代理
+        //curl_setopt($oCurl, CURLOPT_PROXY, HTTP_PROXY_IP_PORT);
+        $sContent = curl_exec($oCurl);
+        $aStatus = curl_getinfo($oCurl);
+        curl_close($oCurl);
+        if(intval($aStatus["http_code"]) == 200){
+            return $sContent;
+        }else{
+            return false;
+        }
+    }
+    /**
+     * 将一个字符串转变成数组
+     * @param string $string 字符串
+     * @return array
+     */
+    public static function stringToArray($string){
+        if(\is_string($string) && !empty($string)){
+            return \json_decode($string, true);
+        }else{
+            return [];
+        }
+    }
 }
