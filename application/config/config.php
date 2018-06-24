@@ -18,13 +18,13 @@
 if(in_array(ENVIRONMENT, ['development', 'testing'])){//开发环境配置
     $config['base_url']	= 'http://www.daproject.com/';
     $staticHost = 'http://static.daproject.com';
-    $appId = 'wxfdd677862571bea9';
-    $appSecret = 'a17b2c7d85950c97126d83367adac1ff';
+    $appId = 'wxc9bcfaa1c73636ab';
+    $appSecret = '149d4eaa0bbd04ff308c39c6c7ddf3c5';
 }else{//生产环境配置
-    $config['base_url']	= 'http://cm.jentian.com/';
+    $config['base_url']	= 'https://cm.jentian.com/';
     $staticHost = 'http://cm-static.jentian.com';
-    $appId = 'wxfdd677862571bea9';
-    $appSecret = 'a17b2c7d85950c97126d83367adac1ff';
+    $appId = 'wxc9bcfaa1c73636ab';
+    $appSecret = '149d4eaa0bbd04ff308c39c6c7ddf3c5';
 }
 define('STATIC_HOST', $staticHost);
 define('APP_ID', $appId);

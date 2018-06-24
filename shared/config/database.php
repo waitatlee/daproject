@@ -45,8 +45,7 @@
 | the active record class
 */
 
-if ( ! class_exists('Platform'))
-{
+if ( ! class_exists('Platform')) {
     get_instance()->load->library('platform');
 }
 
@@ -69,24 +68,11 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
-if ($active_group == 'sae')
-{
-    //SAE数据库设置
-    $db['sae']['hostname'] = SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT;
-    $db['sae']['username'] = SAE_MYSQL_USER;
-    $db['sae']['password'] = SAE_MYSQL_PASS;
-    $db['sae']['database'] = SAE_MYSQL_DB;
-    $db['sae']['dbdriver'] = 'mysqli';
-    $db['sae']['dbprefix'] = 'dili_';
-    $db['sae']['pconnect'] = FALSE;
-    $db['sae']['db_debug'] = TRUE;
-    $db['sae']['cache_on'] = FALSE;
-    $db['sae']['cachedir'] = '';
-    $db['sae']['char_set'] = 'utf8';
-    $db['sae']['dbcollat'] = 'utf8_general_ci';
-    $db['sae']['swap_pre'] = '';
-    $db['sae']['autoinit'] = TRUE;
-    $db['sae']['stricton'] = FALSE;
+if (ENVIRONMENT == 'production') {//生产环境配置
+    $db['default']['hostname'] = '127.0.0.1';
+    $db['default']['username'] = 'jentian';
+    $db['default']['password'] = 'jentian3325461';
+    $db['default']['database'] = 'jentian_3.4';
 }
 
 

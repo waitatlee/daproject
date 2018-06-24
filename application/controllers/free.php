@@ -10,15 +10,33 @@ class Free extends CI_Controller {
      * 获取微信授权
      */
 	public function auth(){
-	    $this->load->model('Access_token_model');
-        $accessToken = $this->Access_token_model->get();
-        echo $accessToken;die;
+	    //$this->load->model('Access_token_model');
+        //$accessToken = $this->Access_token_model->get();
+        //echo $accessToken;die;
         redirect('/free/form');
     }
 
-    public function getOpenId(){
-	    $redirectUrl = BASE_URL.'wechat/callback';
-        $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.APP_ID.'&redirect_uri=REDIRECT_URI&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect$url = https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect';
+    /**
+     * 获取用户的openId(获取一次就好了,存放在会话里)
+     */
+    public function get_open_id(){
+        if($this->input->get('code')){
+            $code = $this->input->get('code');
+            $authUrl = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.APP_ID.'&secret='.APP_SECRET.'&code='.$code.'&grant_type=authorization_code';
+            $authInfo = Tools::stringToArray(Tools::curlGet($authUrl));
+            if(isset($authInfo['openid'])){
+                $this->session->set_userdata('wechatOpenId', $authInfo['openid']);
+                redirect('/free/form');
+            }else{
+                var_dump($authInfo);
+                echo '微信授权失败';
+            }
+        }else{
+            $redirectUrl = urlencode(BASE_URL.'free/get_open_id');
+            $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.APP_ID.'&redirect_uri='.$redirectUrl.'&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect';
+            redirect($url);
+        }
+
     }
 
     /**
@@ -26,7 +44,7 @@ class Free extends CI_Controller {
      */
     public function form(){
 	    if(empty($this->session->userdata('wechatOpenId'))){
-            redirect('/free/auth');
+            redirect('/free/get_open_id');
         }else{
 	        $this->load->helper('form');
 	        $data['isSubscribe'] = true;
