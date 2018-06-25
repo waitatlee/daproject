@@ -200,9 +200,13 @@ class CI_Security {
 	 *
 	 * @return	void
 	 */
-	public function csrf_show_error()
-	{
-		show_error('The action you have requested is not allowed.');
+	public function csrf_show_error(){
+        if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
+            echo json_encode(['success' => false, 'msg' => '非法访问,请刷新页面重试']);
+            exit();
+        }else{
+            show_error('非法访问.');
+        }
 	}
 
 	// --------------------------------------------------------------------

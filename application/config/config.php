@@ -20,16 +20,19 @@ if(in_array(ENVIRONMENT, ['development', 'testing'])){//开发环境配置
     $staticHost = 'http://static.daproject.com';
     $appId = 'wxc9bcfaa1c73636ab';
     $appSecret = '149d4eaa0bbd04ff308c39c6c7ddf3c5';
+    $isTest = true;
 }else{//生产环境配置
     $config['base_url']	= 'https://cm.jentian.com/';
     $staticHost = 'http://cm-static.jentian.com';
     $appId = 'wxc9bcfaa1c73636ab';
     $appSecret = '149d4eaa0bbd04ff308c39c6c7ddf3c5';
+    $isTest = false;
 }
 define('STATIC_HOST', $staticHost);
 define('APP_ID', $appId);
 define('APP_SECRET', $appSecret);
 define('BASE_URL', $config['base_url']);
+define('IS_TEST', $isTest);
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -308,9 +311,9 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_cookie_name' = The cookie name
 | 'csrf_expire' = The number in seconds the token should expire.
 */
-$config['csrf_protection'] = FALSE;
-$config['csrf_token_name'] = 'csrf_test_name';
-$config['csrf_cookie_name'] = 'csrf_cookie_name';
+$config['csrf_protection'] = true;
+$config['csrf_token_name'] = 'csrf_da_project_token';
+$config['csrf_cookie_name'] = 'csrf_da_project_cookie';
 $config['csrf_expire'] = 7200;
 
 /*

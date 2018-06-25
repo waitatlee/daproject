@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script type="text/javascript" src="<?php echo STATIC_HOST; ?>/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="<?php echo STATIC_HOST; ?>/js/layer/layer.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/static/js/layer/layer.js"></script>
     <title>免费话费</title>
     <style>
         *{margin:0;padding:0;}
@@ -58,7 +58,8 @@ $(function(){
             return false;
         }
         $.post('/free/handle', {
-            'mobile': mobile
+            'mobile': mobile,
+            'csrf_da_project_token': $('input[name="csrf_da_project_token"]').val()
         }, function(res){
            if(res.msg){
                layer.msg(res.msg);

@@ -203,6 +203,16 @@ $setting['menus']=array (
           ),
         ),
       ),
+      2 => 
+      array (
+        'menu_id' => '25',
+        'class_name' => 'free_user',
+        'method_name' => 'list',
+        'menu_name' => '免费话费活动管理',
+        'sub_menus' => 
+        array (
+        ),
+      ),
     ),
   ),
   2 => 

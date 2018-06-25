@@ -1,7 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
+ * 常用工具类
+ * User: waitatlee@163.com
  * Date: 2018/6/21
  * Time: 0:14
  */

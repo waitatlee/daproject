@@ -28,8 +28,7 @@ class Free extends CI_Controller {
                 $this->session->set_userdata('wechatOpenId', $authInfo['openid']);
                 redirect('/free/form');
             }else{
-                var_dump($authInfo);
-                echo '微信授权失败';
+                Tools::fail('微信授权失败');
             }
         }else{
             $redirectUrl = urlencode(BASE_URL.'free/get_open_id');
@@ -44,7 +43,12 @@ class Free extends CI_Controller {
      */
     public function form(){
 	    if(empty($this->session->userdata('wechatOpenId'))){
-            redirect('/free/get_open_id');
+	        if(IS_TEST){
+                $this->session->set_userdata('wechatOpenId', 'oAbCtuAezvgGFVJjPIh0xNALHSQE');
+                redirect('/free/form');
+            }else{
+                redirect('/free/get_open_id');
+            }
         }else{
 	        $this->load->helper('form');
 	        $data['isSubscribe'] = true;
@@ -59,10 +63,14 @@ class Free extends CI_Controller {
      * @return string
      */
     public function handle(){
-        $this->load->library('form_validation');
-        $this->load->model('Mobile_area_model');
-        $this->load->model('Free_cost_user_model');
+        $this->load->library(['wechat']);
+        $this->load->model(['Mobile_area_model', 'Free_cost_user_model', 'Access_token_model']);
+        $accessToken = $this->Access_token_model->get();
         $mobile = $this->input->post('mobile');
+        $wechat = new Wechat();
+        if(!$wechat->isSubscribe($this->session->userdata('wechatOpenId'), $accessToken)){
+            Tools::fail('请先关注天羽通讯公众号才能参加免费话费抽奖活动');
+        }
         if(!Tools::isMobile($mobile)){
             Tools::fail('手机格式错误');
         }
@@ -70,7 +78,7 @@ class Free extends CI_Controller {
         if(empty($area)){
             Tools::fail('您的手机号归属地无法识别,若是广东移动用户,请留言给公众号管理员处理');
         }
-        if($area['province'] != '广东' || $area['tel_company'] == '中国移动'){
+        if($area['province'] != '广东' || $area['tel_company'] != '中国移动'){
             Tools::fail('本活动仅限广东移动用户参与');
         }
         $res = $this->Free_cost_user_model->add([
