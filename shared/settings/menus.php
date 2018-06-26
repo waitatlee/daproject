@@ -211,6 +211,13 @@ $setting['menus']=array (
         'menu_name' => '免费话费活动管理',
         'sub_menus' => 
         array (
+          0 => 
+          array (
+            'menu_id' => '26',
+            'class_name' => 'free_user',
+            'method_name' => 'list',
+            'menu_name' => '客户列表',
+          ),
         ),
       ),
     ),

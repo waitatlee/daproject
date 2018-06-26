@@ -152,7 +152,11 @@ class Acl
 						 foreach ($v['sub_menus'] as $j)
 						 {
 						   $extra = '';
-						   $this->_current_menu ==  1 AND $extra =  'model=' . $j['extra'] ;
+						   if(isset($j['extra'])){
+                               $this->_current_menu ==  1 AND $extra =  'model=' . $j['extra'];
+                           }else{
+                               $this->_current_menu ==  1;
+                           }
 						   if ($this->_current_menu ==  2) {
 						        echo '<li class="' . (isset($j['current']) ? 'selected' : '') .'"><a href="' . 
 						   	        plugin_url($key, $j['class_name'], $j['method_name']) . '">' . $j['menu_name'] . '</a></li>';

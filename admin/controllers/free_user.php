@@ -10,11 +10,10 @@
  * @author      waitatlee@163.com
  * @link        http://www.dilicms.com
  */
-class FreeUser extends Admin_Controller{
-
+class Free_user extends Admin_Controller{
     public function __construct(){
         parent::__construct();
-        $this->load->model('free_cost_user_model');
+        $this->load->model('Free_cost_user_model');
     }
 
     // ---------------------------------------------------------------------------------------------------
@@ -24,7 +23,20 @@ class FreeUser extends Admin_Controller{
      */
     public function list(){
         $this->_check_permit();
-        $list = $this->Free_cose_user_model->selectList();
+        $mobile = $this->input->post('mobile');
+        $condition = [];
+        if(!empty($mobile)){
+            $condition = ['mobile' => $mobile];
+        }
+        $page = $this->input->post('page');
+        $length = $this->input->post('length');
+        $statusEnum = [0 => '未充值', 1 => '已充值'];
+        $res = $this->Free_cost_user_model->selectList($condition, $page, $length);
+        $this->_template('free_user_list.php', [
+            'list' => $res['list'],
+            'total' => $res['total'],
+            'statusEnum' => $statusEnum
+        ]);
         return;
     }
 }
