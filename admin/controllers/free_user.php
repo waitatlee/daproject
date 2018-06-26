@@ -35,7 +35,8 @@ class Free_user extends Admin_Controller{
         $this->_template('free_user_list.php', [
             'list' => $res['list'],
             'total' => $res['total'],
-            'statusEnum' => $statusEnum
+            'statusEnum' => $statusEnum,
+            'bread' => make_bread([])
         ]);
         return;
     }

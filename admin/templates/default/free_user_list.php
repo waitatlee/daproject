@@ -1,5 +1,6 @@
 <?php if ( ! defined('IN_DILICMS')) exit('No direct script access allowed');?>
 <div class="headbar">
+    <div class="position"><?=$bread?></div>
 	<div class="position"></div>
 	<div class="field">
 		<table class="list_table">
