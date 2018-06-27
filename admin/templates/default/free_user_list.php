@@ -31,6 +31,7 @@
                     <td><?php echo date('Y-m-d H:i:s', $v['create_at']); ?></td>
                     <td><?php echo $statusEnum[$v['status']]; ?></td>
                     <td>
+                        <a href="<?php echo backend_url('free_user/edit/'.$v->id); ?>"><img class="operator" src="images/icon_edit.gif" alt="修改" title="修改"></a>
                         <a class="confirm_delete" href=""><img class="operator" src="images/icon_del.gif" alt="删除" title="删除"></a>
                     </td>
                 </tr>

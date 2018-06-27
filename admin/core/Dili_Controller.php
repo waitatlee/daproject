@@ -108,7 +108,11 @@ abstract class Admin_Controller extends CI_Controller
 	protected function _template($template, $data = array())
 	{
 		$data['tpl'] = $template;
-		$this->load->view('sys_entry', $data);
+		if(isset($data['isShowNewLeftMenu'])){
+            $this->load->view('sys_left_menu', $data);
+        }else{
+            $this->load->view('sys_entry', $data);
+        }
 	}
 	
 	// ------------------------------------------------------------------------

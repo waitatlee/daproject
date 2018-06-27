@@ -88,6 +88,7 @@ class Acl
      */
 	public function __construct()
 	{
+	    error_reporting(E_ALL ^ E_NOTICE);
 		$this->ci = & get_instance();
 		$this->ci->settings->load('menus');//加载菜单数据
         $temp = setting('menus');

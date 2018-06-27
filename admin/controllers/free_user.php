@@ -35,8 +35,12 @@ class Free_user extends Admin_Controller{
         $this->_template('free_user_list.php', [
             'list' => $res['list'],
             'total' => $res['total'],
+            'isShowNewLeftMenu' => true,
             'statusEnum' => $statusEnum,
-            'bread' => make_bread([])
+            'bread' => make_bread([
+                '活动管理' => '',
+                '免费话费' => site_url('free_user/list?model=free_cost_user_model')
+            ])
         ]);
         return;
     }

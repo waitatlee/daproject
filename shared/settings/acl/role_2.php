@@ -10,6 +10,7 @@ $setting['current_role']=array (
     3 => 'content@save@add',
     4 => 'category_content@form@edit',
     5 => 'free_user@list',
+    6 => 'free_user@list',
   ),
   'models' => 
   array (
